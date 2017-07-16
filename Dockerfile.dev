@@ -2,7 +2,13 @@ FROM malice/kibana:base
 
 LABEL maintainer "https://github.com/blacktop"
 
-RUN pk add --no-cache git ca-certificates
+RUN apk add --no-cache git ca-certificates
 RUN npm install -g sao template-kibana-plugin
 
-WORKDIR /home/kibana
+WORKDIR /home/kibana/kibana
+
+COPY config/kibana.dev.yml /home/kibana/kibana/config/kibana.dev.yml
+
+EXPOSE 5601
+
+CMD ["npm", "run", "elasticsearch"]

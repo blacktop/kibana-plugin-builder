@@ -23,7 +23,9 @@ tags: ## Show all docker image tags
 	docker images --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}" $(ORG)/$(NAME)
 
 ssh: ## SSH into docker image
-	@docker run --init -it --rm -v `pwd`:/home/kibana --entrypoint=sh $(ORG)/$(NAME):$(VERSION)
+	@docker run --init -d --name ssh -v `pwd`:/home/kibana -p 5601:5601 $(ORG)/$(NAME):$(VERSION)
+	docker exec -it ssh sh
+	# @docker run --init -it --rm -v `pwd`:/home/kibana --entrypoint=sh $(ORG)/$(NAME):$(VERSION)
 
 tar: ## Export tar of docker image
 	docker save $(ORG)/$(NAME):$(VERSION) -o $(NAME).tar
