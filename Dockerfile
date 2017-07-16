@@ -6,7 +6,7 @@ ENV LANG=C.UTF-8
 ENV JAVA_HOME=/usr/lib/jvm/default-jvm/jre
 ENV PATH=${PATH}:${JAVA_HOME}/bin:/home/kibana/kibana/bin:${PATH}
 
-RUN apk add --no-cache openjdk8-jre ca-certificates
+RUN apk add --no-cache openjdk8-jre ca-certificates git bash
 
 WORKDIR /home/kibana
 

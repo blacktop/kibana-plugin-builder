@@ -3,6 +3,7 @@ FROM malice/kibana:base
 LABEL maintainer "https://github.com/blacktop"
 
 ENV LANG=C.UTF-8
+ENV JAVA_HOME=/usr/lib/jvm/default-jvm/jre
 ENV PATH=${PATH}:${JAVA_HOME}/bin:/home/kibana/kibana/bin:${PATH}
 
 RUN apk add --no-cache git openjdk8-jre ca-certificates bash
