@@ -16,4 +16,6 @@ COPY config/kibana.dev.yml /home/kibana/kibana/config/kibana.dev.yml
 
 EXPOSE 5601
 
+USER node
+
 CMD ["npm", "run", "elasticsearch"]
