@@ -1,0 +1,5 @@
+#!/bin/bash
+echo "=> Building the binary"
+apt-get update && apt-get install -y jq
+NODE_VERSION=`jq -r '.version' malice/package.json`
+docker build --build-arg NODE_VERSION=$NODE_VERSION -t $IMAGE_NAME .
