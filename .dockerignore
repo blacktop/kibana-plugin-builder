@@ -8,6 +8,8 @@ docs*
 tests*
 hooks*
 
+kibana*
+
 README.md
 README.md.bu
 LICENSE

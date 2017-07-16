@@ -6,14 +6,14 @@ NODE_VERSION=$(shell cat kibana/.node-version)
 
 all: build size test
 
-build: ## Build docker image
+build: base ## Build docker image
 	docker build -t $(ORG)/$(NAME):$(VERSION) .
 
 base: ### Build docker base image
 	docker build --build-arg NODE_VERSION=${NODE_VERSION} -f Dockerfile.base -t $(ORG)/$(NAME):base .
 	docker push $(ORG)/$(NAME):base
 
-dev: ## Build docker dev image
+dev: base ## Build docker dev image
 	docker build --build-arg NODE_VERSION=${NODE_VERSION} -f Dockerfile.dev -t $(ORG)/$(NAME):$(VERSION) .
 
 size: ## Update docker image size in README.md
