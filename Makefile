@@ -6,25 +6,25 @@ VERSION=5.5.0
 
 all: build size test
 
-build:
+build: ## Build docker image
 	docker build -t $(ORG)/$(NAME):$(VERSION) .
 
-base:
+base: ### Build docker base image
 	docker build -f Dockerfile.base -t $(ORG)/$(NAME):base .
 
-dev:
-	docker build --build-arg -f Dockerfile.dev -t $(ORG)/$(NAME):$(VERSION) .
+dev: ## Build docker dev image
+	docker build -f Dockerfile.dev -t $(ORG)/$(NAME):$(VERSION) .
 
-size:
+size: ## Update docker image size in README.md
 	sed -i.bu 's/docker%20image-.*-blue/docker%20image-$(shell docker images --format "{{.Size}}" $(ORG)/$(NAME):$(VERSION)| cut -d' ' -f1)-blue/' README.md
 
-tags:
+tags: ## Show all docker image tags
 	docker images --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}" $(ORG)/$(NAME)
 
-ssh:
+ssh: ## SSH into docker image
 	@docker run --init -it --rm -v `pwd`:/home/kibana --entrypoint=sh $(ORG)/$(NAME):$(VERSION)
 
-tar:
+tar: ## Export tar of docker image
 	docker save $(ORG)/$(NAME):$(VERSION) -o $(NAME).tar
 
 test:
@@ -35,7 +35,7 @@ release: ## Create a new release
 	git tag -a ${VERSION} -m ${MESSAGE}
 	git push origin ${VERSION}
 
-circle: ci-size
+circle: ci-size ## Get docker image size from CircleCI
 	@sed -i.bu 's/docker%20image-.*-blue/docker%20image-$(shell cat .circleci/SIZE)-blue/' README.md
 	@echo "===> Image size is: $(shell cat .circleci/SIZE)"
 
@@ -47,7 +47,7 @@ ci-size: ci-build
 	@echo "===> Getting image build size from CircleCI"
 	@http "$(shell http https://circleci.com/api/v1.1/project/github/${REPO}/$(shell cat .circleci/build_num)/artifacts${CIRCLE_TOKEN} | jq '.[].url')" > .circleci/SIZE
 
-clean:
+clean: ## Clean docker image and stop all running containers
 	docker-clean stop
 	docker rmi $(ORG)/$(NAME):$(VERSION)
 
