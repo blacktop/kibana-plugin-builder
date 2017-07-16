@@ -1,8 +1,10 @@
 {
   "name": "malice",
-  "version": "0.0.0",
+  "version": "5.5.0",
   "description": "Malice Kibana Plugin",
   "main": "index.js",
+  "license": "Apache-2.0",
+  "repository": "github:malice-plugins/kibana-malice",  
   "kibana": {
     "version": "kibana",
     "templateVersion": "7.2.0"

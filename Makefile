@@ -1,8 +1,8 @@
 REPO=malice-plugins/kibana-malice
 ORG=malice
 NAME=kibana
-# VERSION=$(shell jq -r '.version' malice/package.json)
-VERSION=5.5.0
+VERSION=$(shell jq -r '.version' malice/package.json)
+NODE_VERSION=$(shell cat kibana/.node-version)
 
 all: build size test
 
@@ -10,10 +10,10 @@ build: ## Build docker image
 	docker build -t $(ORG)/$(NAME):$(VERSION) .
 
 base: ### Build docker base image
-	docker build -f Dockerfile.base -t $(ORG)/$(NAME):base .
+	docker build --build-arg NODE_VERSION=${NODE_VERSION} -f Dockerfile.base -t $(ORG)/$(NAME):base .
 
 dev: ## Build docker dev image
-	docker build -f Dockerfile.dev -t $(ORG)/$(NAME):$(VERSION) .
+	docker build --build-arg NODE_VERSION=${NODE_VERSION} -f Dockerfile.dev -t $(ORG)/$(NAME):$(VERSION) .
 
 size: ## Update docker image size in README.md
 	sed -i.bu 's/docker%20image-.*-blue/docker%20image-$(shell docker images --format "{{.Size}}" $(ORG)/$(NAME):$(VERSION)| cut -d' ' -f1)-blue/' README.md

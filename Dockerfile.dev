@@ -1,6 +1,5 @@
-FROM alpine:3.6
+FROM malice/kibana:base
 
 LABEL maintainer "https://github.com/blacktop"
 
-RUN apk add --no-cache openjdk8-jre nodejs-current nodejs-current-npm ca-certificates git bash
 RUN npm install -g sao template-kibana-plugin
