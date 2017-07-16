@@ -11,6 +11,7 @@ build: ## Build docker image
 
 base: ### Build docker base image
 	docker build --build-arg NODE_VERSION=${NODE_VERSION} -f Dockerfile.base -t $(ORG)/$(NAME):base .
+	docker push $(ORG)/$(NAME):base
 
 dev: ## Build docker dev image
 	docker build --build-arg NODE_VERSION=${NODE_VERSION} -f Dockerfile.dev -t $(ORG)/$(NAME):$(VERSION) .
@@ -34,6 +35,9 @@ release: ## Create a new release
 	@echo "===> Creating Release"
 	git tag -a ${VERSION} -m ${MESSAGE}
 	git push origin ${VERSION}
+
+push: ## Push docker image to docker registry
+	docker push $(ORG)/$(NAME):$(VERSION)
 
 circle: ci-size ## Get docker image size from CircleCI
 	@sed -i.bu 's/docker%20image-.*-blue/docker%20image-$(shell cat .circleci/SIZE)-blue/' README.md
