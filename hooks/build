@@ -1,4 +1,3 @@
 #!/bin/bash
 echo "=> Building the binary"
-NODE_VERSION=`cat kibana/.node-version`
-docker build --build-arg NODE_VERSION=$NODE_VERSION -t $IMAGE_NAME .
+docker build --build-arg NODE_VERSION=$(cat kibana/.node-version) -t $IMAGE_NAME .
