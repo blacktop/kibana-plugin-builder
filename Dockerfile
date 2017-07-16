@@ -10,8 +10,13 @@ RUN apk add --no-cache openjdk8-jre ca-certificates git bash
 
 WORKDIR /home/kibana
 
+ARG VERSION=5.5.0
+
 # Install kibana's verion of nodeJS
-COPY kibana /home/kibana/kibana
+# COPY kibana /home/kibana/kibana
+RUN echo "===> Cloning Kibana v$VERSION" \
+    && git clone -b v${VERSION} https://github.com/elastic/kibana.git
+
 RUN echo "===> Installing elasticdump" \
   && npm install elasticdump -g
 
