@@ -59,3 +59,4 @@ typings/
 
 kibana/libesvm*
 kibana/libesvm-*/
+*.bu
