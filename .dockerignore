@@ -1,10 +1,12 @@
 # Ignore .git folder
 .git*
 .gitignore
+.gitmodules
 
 .circleci*
 docs*
 tests*
+hooks*
 
 README.md
 README.md.bu

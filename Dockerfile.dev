@@ -2,4 +2,7 @@ FROM malice/kibana:base
 
 LABEL maintainer "https://github.com/blacktop"
 
+RUN pk add --no-cache git ca-certificates
 RUN npm install -g sao template-kibana-plugin
+
+WORKDIR /home/kibana
