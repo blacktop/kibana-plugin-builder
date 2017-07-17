@@ -33,7 +33,7 @@ ssh: ## SSH into docker image
 tar: ## Export tar of docker image
 	docker save $(ORG)/$(NAME):$(VERSION) -o $(NAME).tar
 
-test: ## Test build plugin
+plugin: ## Build kibana malice plugin
 	@echo "===> Starting kibana elasticsearch..."
 	@docker run --init -d --name kplug -v `pwd`:/home/kibana -p 9200:9200 -p 5601:5601 $(ORG)/$(NAME):$(VERSION)
 	@echo "===> Building kibana plugin..."
@@ -42,7 +42,18 @@ test: ## Test build plugin
 	@ls -lah malice/build
 	@docker-clean stop
 
-release: ## Create a new release
+test: ## Test build plugin
+	@echo "===> Starting kibana elasticsearch..."
+	@docker run --init -d --name kplug -v `pwd`:/home/kibana -p 9200:9200 -p 5601:5601 $(ORG)/$(NAME):$(VERSION)
+	@echo "===> Testing kibana plugin..."
+	@sleep 10; docker exec -it kplug bash -c "cd ../malice && npm run test:server"
+	@docker-clean stop
+
+push:
+	@echo "===> Pushing $(ORG)/$(NAME):$(VERSION) to docker hub..."
+	@docker push $(ORG)/$(NAME):$(VERSION)
+
+release: plugin push ## Create a new release
 	@echo "===> Creating Release"
 	git tag -a ${VERSION} -m ${MESSAGE}
 	git push origin ${VERSION}
@@ -73,4 +84,4 @@ help:
 
 .DEFAULT_GOAL := help
 
-.PHONY: build size tags test ssh circle
+.PHONY: build size tags tar test run ssh circle push release
