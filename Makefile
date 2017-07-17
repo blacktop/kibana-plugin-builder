@@ -33,7 +33,7 @@ ssh: ## SSH into docker image
 tar: ## Export tar of docker image
 	docker save $(ORG)/$(NAME):$(VERSION) -o $(NAME).tar
 
-plugin: ## Build kibana malice plugin
+plugin: build ## Build kibana malice plugin
 	@echo "===> Starting kibana elasticsearch..."
 	@docker run --init -d --name kplug -v `pwd`:/home/kibana -p 9200:9200 -p 5601:5601 $(ORG)/$(NAME):$(VERSION)
 	@echo "===> Building kibana plugin..."
@@ -49,17 +49,17 @@ test: ## Test build plugin
 	@sleep 10; docker exec -it kplug bash -c "cd ../malice && npm run test:server"
 	@docker-clean stop
 
-push:
+push: ## Push docker image to docker registry
 	@echo "===> Pushing $(ORG)/$(NAME):$(VERSION) to docker hub..."
 	@docker push $(ORG)/$(NAME):$(VERSION)
 
 release: plugin push ## Create a new release
 	@echo "===> Creating Release"
-	git tag -a ${VERSION} -m ${MESSAGE}
-	git push origin ${VERSION}
-
-push: ## Push docker image to docker registry
-	docker push $(ORG)/$(NAME):$(VERSION)
+	rm -rf release && mkdir release
+	go get github.com/progrium/gh-release/...
+	cp malice/build/* release
+	gh-release create $(REPO) $(VERSION) \
+		$(shell git rev-parse --abbrev-ref HEAD) $(VERSION)
 
 circle: ci-size ## Get docker image size from CircleCI
 	@sed -i.bu 's/docker%20image-.*-blue/docker%20image-$(shell cat .circleci/SIZE)-blue/' README.md
