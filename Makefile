@@ -37,9 +37,10 @@ test: ## Test build plugin
 	@echo "===> Starting kibana elasticsearch..."
 	@docker run --init -d --name kplug -v `pwd`:/home/kibana -p 9200:9200 -p 5601:5601 $(ORG)/$(NAME):$(VERSION)
 	@echo "===> Building kibana plugin..."
-	@sleep 10; docker exec -it kplug bash -c "cd ../plugin && npm run build"
+	@sleep 10; docker exec -it kplug bash -c "cd ../malice && npm run build"
 	@echo "===> Build complete"
-	@ls -lah malice/dist
+	@ls -lah malice/build
+	@docker-clean stop
 
 release: ## Create a new release
 	@echo "===> Creating Release"
@@ -63,8 +64,8 @@ ci-size: ci-build
 
 clean: ## Clean docker image and stop all running containers
 	docker-clean stop
-	docker rmi $(ORG)/$(NAME):$(VERSION)
-	rm -rf malice/dist
+	docker rmi $(ORG)/$(NAME):$(VERSION) || true
+	rm -rf malice/build
 
 # Absolutely awesome: http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 help:

@@ -7,8 +7,8 @@ ENV JAVA_HOME=/usr/lib/jvm/default-jvm/jre
 ENV PATH=${PATH}:${JAVA_HOME}/bin:/home/kibana/kibana/bin:${PATH}
 
 RUN apk add --no-cache git openjdk8-jre ca-certificates bash
-# RUN npm install -g npm
-# RUN npm install -g sao template-kibana-plugin
+
+RUN npm install -g sao template-kibana-plugin
 
 WORKDIR /home/kibana/kibana
 
