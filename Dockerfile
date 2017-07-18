@@ -18,7 +18,7 @@ WORKDIR /home/kibana
 # Install kibana's verion of nodeJS
 # COPY kibana /home/kibana/kibana
 RUN echo "===> Cloning Kibana v$VERSION" \
-    && git clone -b v${VERSION} https://github.com/elastic/kibana.git
+    && git clone --depth 1 -b v${VERSION} https://github.com/elastic/kibana.git
 
 WORKDIR /home/kibana/kibana
 
