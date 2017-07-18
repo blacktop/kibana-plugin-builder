@@ -7,7 +7,7 @@ NODE_VERSION=$(shell cat kibana/.node-version)
 all: build size test
 
 build: base ## Build docker image
-	docker build -t $(ORG)/$(NAME):$(VERSION) .
+	docker build --build-arg VERSION=$(VERSION) -t $(ORG)/$(NAME):$(VERSION) .
 
 base: ### Build docker base image
 	docker build --build-arg NODE_VERSION=${NODE_VERSION} -f Dockerfile.base -t $(ORG)/$(NAME):base .
@@ -54,7 +54,7 @@ push: ## Push docker image to docker registry
 	@echo "===> Pushing $(ORG)/$(NAME):$(VERSION) to docker hub..."
 	@docker push $(ORG)/$(NAME):$(VERSION)
 
-release: plugin push ## Create a new release
+release: plugin ## Create a new release
 	@echo "===> Creating Release"
 	rm -rf release && mkdir release
 	go get github.com/progrium/gh-release/...

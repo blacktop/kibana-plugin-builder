@@ -4,9 +4,9 @@
   "description": "Malice Kibana Plugin",
   "main": "index.js",
   "license": "Apache-2.0",
-  "repository": "github:malice-plugins/kibana-malice",  
+  "repository": "github:malice-plugins/kibana-malice",
   "kibana": {
-    "version": "kibana",
+    "version": "5.5.0",
     "templateVersion": "7.2.0"
   },
   "scripts": {
