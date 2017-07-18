@@ -6,6 +6,13 @@ import 'ui/autoload/styles';
 import './less/main.less';
 import template from './templates/index.html';
 
+document.title = 'Malice - Kibana';
+
+import chrome from 'ui/chrome';
+
+// Set Kibana dark thmeme
+chrome.addApplicationClass('theme-dark');
+
 uiRoutes.enable();
 uiRoutes
 .when('/', {

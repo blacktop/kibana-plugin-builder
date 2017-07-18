@@ -6,23 +6,24 @@ export default function (kibana) {
     require: ['elasticsearch'],
     name: 'malice',
     uiExports: {
-      
+
       app: {
         title: 'Malice',
         description: 'Malice Kibana Plugin',
-        main: 'plugins/malice/app'
+        main: 'plugins/malice/app',
+        icon: 'plugins/malice/icon.svg'
       },
-      
-      
+
+
       translations: [
         resolve(__dirname, './translations/es.json')
       ],
-      
-      
+
+
       hacks: [
         'plugins/malice/hack'
       ]
-      
+
     },
 
     config(Joi) {
@@ -31,12 +32,13 @@ export default function (kibana) {
       }).default();
     },
 
-    
+
     init(server, options) {
+      server.log(['status', 'info', 'malice'], 'Malice Initializing');
       // Add server routes and initalize the plugin here
       exampleRoute(server);
     }
-    
+
 
   });
 };

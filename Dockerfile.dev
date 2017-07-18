@@ -12,7 +12,7 @@ RUN npm install -g sao template-kibana-plugin
 
 WORKDIR /home/kibana/kibana
 
-COPY config/kibana.dev.yml /home/kibana/kibana/config/kibana.dev.yml
+# COPY config/kibana.dev.yml /home/kibana/kibana/config/kibana.dev.yml
 
 EXPOSE 5601
 
