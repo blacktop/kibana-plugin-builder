@@ -20,13 +20,59 @@ blacktop/kibana-plugin-builder     5.5.0               1.07GB
 blacktop/kibana-plugin-builder     node                54.2MB
 ```
 
-> **NOTE:** tag `node` is the base image that has the appropriate version of NodeJS for the version of Kibana you are using to build your plugin (it default to the version needed for latest)
+> **NOTE:** tag `node` is the base image that has the appropriate version of **NodeJS** for the version of **Kibana** you are using to build your plugin (it default to the version needed for latest)
 
-Build
------
+Getting Started
+---------------
 
+### Install [template-kibana-plugin](https://github.com/elastic/template-kibana-plugin/)
+
+```bash
+$ npm install -g sao template-kibana-plugin
 ```
+
+### Run the generator
+
+```bash
+$ cd my-new-plugin
+$ sao kibana-plugin
+```
+
+### Start Kibana Dev Environment
+
+```bash
+$ export VERSION=$(jq -r '.version' package.json)
+$ echo "===> Starting kibana elasticsearch..."
+$ docker run --init -d --name kplug -v `pwd`:/plugin/my-new-plugin -p 9200:9200 -p 5601:5601 blacktop/kibana-plugin-builder:$(VERSION)
+$ echo "===> Running kibana plugin..."
+$ sleep 10; docker exec -it kplug bash -c "cd ../my-new-plugin && ./start.sh"
+```
+
+Build Image
+-----------
+
+To build a **kibana** dev env that uses **kibana** version `5.5.0`
+
+```bash
 $ git clone https://github.com/blacktop/kibana-plugin-builder.git
 $ cd kibana-plugin-builder
-$ make build
+$ VERSION=5.5.0 make build
 ```
+
+### Issues
+
+Find a bug? Want more features? Find something missing in the documentation? Let me know! Please don't hesitate to [file an issue](https://github.com/blacktop/kibana-plugin-builder/issues/new)
+
+### CHANGELOG
+
+See [`CHANGELOG.md`](https://github.com/blacktop/kibana-plugin-builder/blob/master/CHANGELOG.md)
+
+### Contributing
+
+[See all contributors on GitHub](https://github.com/blacktop/kibana-plugin-builder/graphs/contributors).
+
+Please update the [CHANGELOG.md](https://github.com/blacktop/kibana-plugin-builder/blob/master/CHANGELOG.md) and submit a [Pull Request on GitHub](https://help.github.com/articles/using-pull-requests/).
+
+### License
+
+MIT Copyright (c) 2017 **blacktop**
