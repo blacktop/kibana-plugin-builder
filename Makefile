@@ -1,4 +1,4 @@
-REPO=malice-plugins/kibana-malice
+REPO=malice-plugins/kibana-plugin-builder
 ORG=malice
 NAME=kibana
 VERSION=$(shell jq -r '.version' malice/package.json)
