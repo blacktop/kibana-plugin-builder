@@ -1,8 +1,0 @@
-server.host: "0.0.0.0"
-elasticsearch.url: 'http://localhost:9200'
-# server.ssl.enabled: false
-
-optimize:
-  sourceMaps: '#cheap-source-map' # options -> http://webpack.github.io/docs/configuration.html#devtool
-  unsafeCache: true
-  lazyPrebuild: false

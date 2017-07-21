@@ -1,7 +1,7 @@
 REPO=malice-plugins/kibana-plugin-builder
 ORG=malice
 NAME=kibana-plugin-builder
-VERSION?=$(shell jq -r '.version' malice/package.json)
+VERSION?=$(shell curl -s https://raw.githubusercontent.com/maliceio/malice-kibana-plugin/master/package.json | jq -r '.version')
 NODE_VERSION?=$(shell curl -s https://raw.githubusercontent.com/elastic/kibana/v$(VERSION)/.node-version)
 
 dockerfile: ## Update Dockerfiles
@@ -19,56 +19,30 @@ dev: base ## Build docker dev image
 
 size: ## Update docker image size in README.md
 	sed -i.bu 's/docker%20image-.*-blue/docker%20image-$(shell docker images --format "{{.Size}}" $(ORG)/$(NAME):$(VERSION)| cut -d' ' -f1)-blue/' README.md
-	sed -i.bu 's/-	Kibana.*/-	Kibana $(VERSION)+/' README.md	
+	sed -i.bu 's/-	Kibana.*/-	Kibana $(VERSION)+/' README.md
 
 tags: ## Show all docker image tags
 	docker images --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}" $(ORG)/$(NAME)
 
-install: ## npm install plugin dependancies
-	@echo "===> malice-plugin npm install..."
-	@docker run --init --rm -v `pwd`/malice:/plugin/malice $(ORG)/$(NAME):$(VERSION) bash -c "cd ../malice && npm install"
-
-run: stop ## Run malice kibana plugin env
+run: stop ## Run kibana plugin env
 	@echo "===> Starting kibana elasticsearch..."
-	@docker run --init -d --name kplug -v `pwd`/malice:/plugin/malice -p 9200:9200 -p 5601:5601 $(ORG)/$(NAME):$(VERSION)
-	@echo "===> Running kibana plugin..."
-	@sleep 10; docker exec -it kplug bash -c "cd ../malice && ./start.sh"
+	@docker run --init -d --name kplug -p 9200:9200 -p 5601:5601 $(ORG)/$(NAME):$(VERSION)
 
 ssh: ## SSH into docker image
-	@docker run --init -it --rm -v `pwd`/malice:/plugin/malice --entrypoint=sh $(ORG)/$(NAME):$(VERSION)
+	@docker run --init -it --rm --entrypoint=sh $(ORG)/$(NAME):$(VERSION)
 
 tar: ## Export tar of docker image
 	docker save $(ORG)/$(NAME):$(VERSION) -o $(NAME).tar
 
-plugin: build size install stop ## Build kibana malice plugin
-	@echo "===> Starting kibana elasticsearch..."
-	@docker run --init -d --name kplug -v `pwd`/malice:/plugin/malice -p 9200:9200 -p 5601:5601 $(ORG)/$(NAME):$(VERSION)
-	@echo "===> Building kibana plugin..."
-	@sleep 10; docker exec -it kplug bash -c "cd ../malice && npm run build"
-	@echo "===> Build complete"
-	@ls -lah malice/build
-	@docker-clean stop
-
-test: stop ## Test build plugin
-	@echo "===> Starting kibana elasticsearch..."
-	@docker run --init -d --name kplug -v `pwd`/malice:/plugin/malice -p 9200:9200 -p 5601:5601 $(ORG)/$(NAME):$(VERSION)
-	@echo "===> Testing kibana plugin..."
-	@sleep 10; docker exec -it kplug bash -c "cd ../malice && npm run test:server"
-	@docker-clean stop
+test: ## Test build plugin
+	@echo "===> Starting kibana tests..."
+	@docker run --init --rm -p 9200:9200 -p 5601:5601 $(ORG)/$(NAME):$(VERSION) npm run test:quick
 
 push: ## Push docker image to docker registry
 	@echo "===> Pushing $(ORG)/$(NAME):node to docker hub..."
 	@docker push $(ORG)/$(NAME):node
 	@echo "===> Pushing $(ORG)/$(NAME):$(VERSION) to docker hub..."
 	@docker push $(ORG)/$(NAME):$(VERSION)
-
-release: plugin push ## Create a new release
-	@echo "===> Creating Release"
-	rm -rf release && mkdir release
-	go get github.com/progrium/gh-release/...
-	cp malice/build/* release
-	gh-release create $(REPO) $(VERSION) \
-		$(shell git rev-parse --abbrev-ref HEAD) $(VERSION)
 
 circle: ci-size ## Get docker image size from CircleCI
 	@sed -i.bu 's/docker%20image-.*-blue/docker%20image-$(shell cat .circleci/SIZE)-blue/' README.md
@@ -96,4 +70,4 @@ help:
 
 .DEFAULT_GOAL := help
 
-.PHONY: build size tags tar test run ssh circle push release dockerfile install
+.PHONY: build dev size tags tar test run ssh circle node push dockerfile
