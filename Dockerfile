@@ -11,7 +11,7 @@ RUN apk add --no-cache openjdk8-jre ca-certificates git bash
 ARG VERSION=5.5.0
 
 RUN echo "===> Installing elasticdump" \
-  && npm install elasticdump -g
+  && npm install sao template-kibana-plugin elasticdump -g
 
 WORKDIR /plugin
 
@@ -23,10 +23,13 @@ WORKDIR /plugin/kibana
 # Install kibana node_modules
 RUN npm install
 
-RUN chown -R node: /plugin
-
-EXPOSE 5601 9200
+COPY entrypoint.sh /entrypoint.sh
+RUN chown -R node: /plugin \
+  && chmod +x /entrypoint.sh \
+  && chown -R node: /entrypoint.sh
 
 USER node
 
-CMD ["npm", "run", "elasticsearch"]
+EXPOSE 5601 9200
+
+CMD ["/entrypoint.sh"]

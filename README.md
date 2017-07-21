@@ -38,7 +38,29 @@ $ cd my-new-plugin
 $ sao kibana-plugin
 ```
 
+=OR=
+
+### Use **kibana-plugin-builder** to create new plugin  
+
+```bash
+$ mkdir my-new-plugin
+$ cd my-new-plugin
+$ docker run --init --rm -ti -v `pwd`:/plugin -w /plugin blacktop/kibana-plugin-builder new-plugin
+```
+
 ### Start Kibana Dev Environment
+
+> **NOTE:** this assumes you have set a `version` in your `package.json`
+
+Example:
+
+```json
+  "kibana": {
+    "version": "5.5.0",
+    "templateVersion": "7.2.0"
+  },
+  ...
+```
 
 ```bash
 $ export VERSION=$(jq -r '.version' package.json)
