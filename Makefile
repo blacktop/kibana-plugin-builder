@@ -2,16 +2,20 @@ REPO=malice-plugins/kibana-plugin-builder
 ORG=malice
 NAME=kibana-plugin-builder
 VERSION?=$(shell jq -r '.version' malice/package.json)
-NODE_VERSION?=$(VERSION)
+NODE_VERSION?=$(shell curl -s https://raw.githubusercontent.com/elastic/kibana/v$(VERSION)/.node-version)
 
 all: build size test
+
+dockerfile: ## Update Dockerfiles
+		sed -i.bu 's/ARG VERSION=.*/ARG VERSION=$(VERSION)/' Dockerfile
+		sed -i.bu 's/ARG NODE_VERSION=.*/ARG NODE_VERSION=$(NODE_VERSION)/' Dockerfile.node
 
 build: node ## Build docker image
 	docker build --build-arg VERSION=$(VERSION) -t $(ORG)/$(NAME):$(VERSION) .
 
 node: ### Build docker base image
-	docker build --build-arg NODE_VERSION=${NODE_VERSION} -f Dockerfile.base -t $(ORG)/$(NAME):base .
-	docker push $(ORG)/$(NAME):base
+	docker build --build-arg NODE_VERSION=${NODE_VERSION} -f Dockerfile.node -t $(ORG)/$(NAME):node .
+	docker push $(ORG)/$(NAME):node
 
 dev: base ## Build docker dev image
 	docker build --build-arg NODE_VERSION=${NODE_VERSION} -f Dockerfile.dev -t $(ORG)/$(NAME):$(VERSION) .
@@ -85,4 +89,4 @@ help:
 
 .DEFAULT_GOAL := help
 
-.PHONY: build size tags tar test run ssh circle push release
+.PHONY: build size tags tar test run ssh circle push release dockerfile

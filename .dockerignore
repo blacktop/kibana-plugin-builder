@@ -12,7 +12,7 @@ malice/build*
 kibana*
 
 README.md
-README.md.bu
+*.bu
 LICENSE
 CHANGELOG.md
 Makefile
