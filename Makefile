@@ -1,8 +1,8 @@
 REPO=malice-plugins/kibana-plugin-builder
 ORG=malice
-NAME=kibana
-VERSION=$(shell jq -r '.version' malice/package.json)
-NODE_VERSION=$(shell cat kibana/.node-version)
+NAME=kibana-plugin-builder
+VERSION?=$(shell jq -r '.version' malice/package.json)
+NODE_VERSION?=$(VERSION)
 
 all: build size test
 
