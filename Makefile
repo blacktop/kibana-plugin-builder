@@ -27,7 +27,7 @@ tags: ## Show all docker image tags
 
 run: ## Run malice kibana plugin env
 	@echo "===> Starting kibana elasticsearch..."
-	@docker run --init -d --name kplug -v `pwd`:/home/kibana -p 9200:9200 -p 5601:5601 $(ORG)/$(NAME):$(VERSION)
+	@docker run --init -d --name kplug -v `pwd`/malice:/home/kibana/malice -p 9200:9200 -p 5601:5601 $(ORG)/$(NAME):$(VERSION)
 	@echo "===> Running kibana plugin..."
 	@sleep 10; docker exec -it kplug bash -c "cd ../malice && ./start.sh"
 
@@ -39,7 +39,7 @@ tar: ## Export tar of docker image
 
 plugin: build ## Build kibana malice plugin
 	@echo "===> Starting kibana elasticsearch..."
-	@docker run --init -d --name kplug -v `pwd`:/home/kibana -p 9200:9200 -p 5601:5601 $(ORG)/$(NAME):$(VERSION)
+	@docker run --init -d --name kplug -v `pwd`/malice:/home/kibana/malice -p 9200:9200 -p 5601:5601 $(ORG)/$(NAME):$(VERSION)
 	@echo "===> Building kibana plugin..."
 	@sleep 10; docker exec -it kplug bash -c "cd ../malice && npm run build"
 	@echo "===> Build complete"
@@ -48,7 +48,7 @@ plugin: build ## Build kibana malice plugin
 
 test: ## Test build plugin
 	@echo "===> Starting kibana elasticsearch..."
-	@docker run --init -d --name kplug -v `pwd`:/home/kibana -p 9200:9200 -p 5601:5601 $(ORG)/$(NAME):$(VERSION)
+	@docker run --init -d --name kplug -v `pwd`/malice:/home/kibana/malice -p 9200:9200 -p 5601:5601 $(ORG)/$(NAME):$(VERSION)
 	@echo "===> Testing kibana plugin..."
 	@sleep 10; docker exec -it kplug bash -c "cd ../malice && npm run test:server"
 	@docker-clean stop

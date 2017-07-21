@@ -13,10 +13,10 @@ ARG VERSION=5.5.0
 RUN echo "===> Installing elasticdump" \
   && npm install elasticdump -g
 
+USER node
+
 WORKDIR /home/kibana
 
-# Install kibana's verion of nodeJS
-# COPY kibana /home/kibana/kibana
 RUN echo "===> Cloning Kibana v$VERSION" \
     && git clone --depth 1 -b v${VERSION} https://github.com/elastic/kibana.git
 
@@ -26,7 +26,5 @@ WORKDIR /home/kibana/kibana
 RUN npm install
 
 EXPOSE 5601 9200
-
-USER node
 
 CMD ["npm", "run", "elasticsearch"]
