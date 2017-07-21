@@ -9,7 +9,7 @@ kibana-plugin-builder
 
 ### Dependencies
 
--	[alpine:3.6](https://index.docker.io/_/gliderlabs/alpine/)
+-	[alpine:3.6](https://hub.docker.com/_/alpine/)
 
 ### Image Tags
 
@@ -17,8 +17,10 @@ kibana-plugin-builder
 REPOSITORY          TAG                 SIZE
 blacktop/kibana-plugin-builder     latest              1.07GB
 blacktop/kibana-plugin-builder     5.5.0               1.07GB
-blacktop/kibana-plugin-builder     node                189MB
+blacktop/kibana-plugin-builder     node                54.2MB
 ```
+
+> **NOTE:** tag `node` is the base image that has the appropriate version of NodeJS for the version of Kibana you are using to build your plugin (it default to the version needed for latest)
 
 Build
 -----

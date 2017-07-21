@@ -11,18 +11,19 @@ dockerfile: ## Update Dockerfiles
 	sed -i.bu 's/ARG NODE_VERSION=.*/ARG NODE_VERSION=$(NODE_VERSION)/' Dockerfile.node
 
 node: ### Build docker base image
-	docker build --build-arg NODE_VERSION=${NODE_VERSION} -f Dockerfile.node -t $(ORG)/$(NAME):node .
+	docker build --squash --build-arg NODE_VERSION=${NODE_VERSION} -f Dockerfile.node -t $(ORG)/$(NAME):node .
 
 build: dockerfile node ## Build docker image
-	docker build --build-arg VERSION=$(VERSION) -t $(ORG)/$(NAME):$(VERSION) .
+	docker build --squash --build-arg VERSION=$(VERSION) -t $(ORG)/$(NAME):$(VERSION) .
 
 dev: base ## Build docker dev image
-	docker build --build-arg NODE_VERSION=${NODE_VERSION} -f Dockerfile.dev -t $(ORG)/$(NAME):$(VERSION) .
+	docker build --squash --build-arg NODE_VERSION=${NODE_VERSION} -f Dockerfile.dev -t $(ORG)/$(NAME):$(VERSION) .
 
 size: tags ## Update docker image size in README.md
 	sed -i.bu 's/docker%20image-.*-blue/docker%20image-$(shell docker images --format "{{.Size}}" $(ORG)/$(NAME):$(VERSION)| cut -d' ' -f1)-blue/' README.md
 	sed -i.bu '/latest/ s/[0-9.]\{3,5\}MB/$(shell docker images --format "{{.Size}}" $(ORG)/$(NAME):$(VERSION))/' README.md
 	sed -i.bu '/$(VERSION)/ s/[0-9.]\{3,5\}MB/$(shell docker images --format "{{.Size}}" $(ORG)/$(NAME):$(VERSION))/' README.md
+	sed -i.bu '/node/ s/[0-9.]\{3,5\}MB/$(shell docker images --format "{{.Size}}" $(ORG)/$(NAME):node)/' README.md
 
 tags: ## Show all docker image tags
 	docker images --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}" $(ORG)/$(NAME)
@@ -35,7 +36,7 @@ ssh: ## SSH into docker image
 	@docker run --init -it --rm --entrypoint=sh $(ORG)/$(NAME):$(VERSION)
 
 tar: ## Export tar of docker image
-	docker save $(ORG)/$(NAME):$(VERSION) -o $(NAME).tar
+	@docker save $(ORG)/$(NAME):$(VERSION) -o $(NAME).tar
 
 test: ## Test build plugin
 	@echo "===> Starting kibana tests..."
