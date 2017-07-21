@@ -59,7 +59,8 @@ jobs:
           name: Run image tests
           command: |
             set -x
-            docker run --rm app
+            docker run --rm app:
+              timeout: 60
       # - deploy:
       #     name: Push application Docker image
       #     command: |
