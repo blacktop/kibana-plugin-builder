@@ -57,10 +57,10 @@ jobs:
             - /caches/app.tar
       - run:
           name: Run image tests
+          no_output_timeout: 1m
           command: |
             set -x
-            docker run --rm app:
-              timeout: 60
+            docker run --rm app
       # - deploy:
       #     name: Push application Docker image
       #     command: |
