@@ -40,7 +40,7 @@ test: ## Test build plugin
 	@echo "===> Starting kibana tests..."
 	@docker run --init --rm -p 9200:9200 -p 5601:5601 $(ORG)/$(NAME):$(VERSION) npm run test:quick
 
-push: ## Push docker image to docker registry
+push: build ## Push docker image to docker registry
 	@echo "===> Pushing $(ORG)/$(NAME):node to docker hub..."
 	@docker push $(ORG)/$(NAME):node
 	@echo "===> Pushing $(ORG)/$(NAME):$(VERSION) to docker hub..."
