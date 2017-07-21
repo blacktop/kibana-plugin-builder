@@ -6,10 +6,10 @@ NODE_VERSION?=$(VERSION)
 
 all: build size test
 
-build: base ## Build docker image
+build: node ## Build docker image
 	docker build --build-arg VERSION=$(VERSION) -t $(ORG)/$(NAME):$(VERSION) .
 
-base: ### Build docker base image
+node: ### Build docker base image
 	docker build --build-arg NODE_VERSION=${NODE_VERSION} -f Dockerfile.base -t $(ORG)/$(NAME):base .
 	docker push $(ORG)/$(NAME):base
 
