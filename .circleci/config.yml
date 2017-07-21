@@ -59,7 +59,7 @@ jobs:
           name: Run image tests
           command: |
             set -x
-            echo "make tests"
+            docker run --rm app
       # - deploy:
       #     name: Push application Docker image
       #     command: |
