@@ -10,12 +10,11 @@ dockerfile: ## Update Dockerfiles
 		sed -i.bu 's/ARG VERSION=.*/ARG VERSION=$(VERSION)/' Dockerfile
 		sed -i.bu 's/ARG NODE_VERSION=.*/ARG NODE_VERSION=$(NODE_VERSION)/' Dockerfile.node
 
-build: node ## Build docker image
-	docker build --build-arg VERSION=$(VERSION) -t $(ORG)/$(NAME):$(VERSION) .
-
 node: ### Build docker base image
 	docker build --build-arg NODE_VERSION=${NODE_VERSION} -f Dockerfile.node -t $(ORG)/$(NAME):node .
-	docker push $(ORG)/$(NAME):node
+
+build: dockerfile node ## Build docker image
+	docker build --build-arg VERSION=$(VERSION) -t $(ORG)/$(NAME):$(VERSION) .
 
 dev: base ## Build docker dev image
 	docker build --build-arg NODE_VERSION=${NODE_VERSION} -f Dockerfile.dev -t $(ORG)/$(NAME):$(VERSION) .
@@ -55,10 +54,12 @@ test: ## Test build plugin
 	@docker-clean stop
 
 push: ## Push docker image to docker registry
+	@echo "===> Pushing $(ORG)/$(NAME):node to docker hub..."
+	@docker push $(ORG)/$(NAME):node
 	@echo "===> Pushing $(ORG)/$(NAME):$(VERSION) to docker hub..."
 	@docker push $(ORG)/$(NAME):$(VERSION)
 
-release: plugin ## Create a new release
+release: push plugin ## Create a new release
 	@echo "===> Creating Release"
 	rm -rf release && mkdir release
 	go get github.com/progrium/gh-release/...
