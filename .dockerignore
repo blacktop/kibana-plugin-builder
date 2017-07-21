@@ -10,6 +10,7 @@ hooks*
 malice/build*
 
 kibana*
+malice*
 
 README.md
 *.bu

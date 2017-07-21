@@ -4,8 +4,6 @@ NAME=kibana-plugin-builder
 VERSION?=$(shell jq -r '.version' malice/package.json)
 NODE_VERSION?=$(shell curl -s https://raw.githubusercontent.com/elastic/kibana/v$(VERSION)/.node-version)
 
-all: build size test
-
 dockerfile: ## Update Dockerfiles
 	sed -i.bu 's/ARG VERSION=.*/ARG VERSION=$(VERSION)/' Dockerfile
 	sed -i.bu 's/ARG NODE_VERSION=.*/ARG NODE_VERSION=$(NODE_VERSION)/' Dockerfile.node
@@ -21,6 +19,7 @@ dev: base ## Build docker dev image
 
 size: ## Update docker image size in README.md
 	sed -i.bu 's/docker%20image-.*-blue/docker%20image-$(shell docker images --format "{{.Size}}" $(ORG)/$(NAME):$(VERSION)| cut -d' ' -f1)-blue/' README.md
+	sed -i.bu 's/-	Kibana.*/-	Kibana $(VERSION)+/' README.md	
 
 tags: ## Show all docker image tags
 	docker images --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}" $(ORG)/$(NAME)
@@ -41,7 +40,7 @@ ssh: ## SSH into docker image
 tar: ## Export tar of docker image
 	docker save $(ORG)/$(NAME):$(VERSION) -o $(NAME).tar
 
-plugin: build install stop ## Build kibana malice plugin
+plugin: build size install stop ## Build kibana malice plugin
 	@echo "===> Starting kibana elasticsearch..."
 	@docker run --init -d --name kplug -v `pwd`/malice:/plugin/malice -p 9200:9200 -p 5601:5601 $(ORG)/$(NAME):$(VERSION)
 	@echo "===> Building kibana plugin..."
@@ -97,4 +96,4 @@ help:
 
 .DEFAULT_GOAL := help
 
-.PHONY: build size tags tar test run ssh circle push release dockerfile
+.PHONY: build size tags tar test run ssh circle push release dockerfile install

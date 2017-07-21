@@ -11,7 +11,7 @@ kibana-plugin-builder
 
 #### Requirements
 
--	Kibana 5.5+
+-	Kibana 5.5.0+
 
 Installation
 ------------
