@@ -52,13 +52,13 @@ $ docker run --init --rm -ti -v `pwd`:/plugin -w /plugin blacktop/kibana-plugin-
 
 > **NOTE:** this assumes you have set a `version` in your `package.json`
 
-Example:
+*example:*
 
 ```json
   "kibana": {
     "version": "5.5.0",
     "templateVersion": "7.2.0"
-  },
+  }
   ...
 ```
 
