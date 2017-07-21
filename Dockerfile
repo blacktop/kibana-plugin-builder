@@ -1,4 +1,4 @@
-FROM malice/kibana-plugin-builder:node
+FROM blacktop/kibana-plugin-builder:node
 
 LABEL maintainer "https://github.com/blacktop"
 
