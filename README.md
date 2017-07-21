@@ -19,3 +19,12 @@ Installation
 ```
 $ bin/kibana-plugin install https://github.com/malice-plugins/kibana-plugin-builder/releases/download/v5.5.0/malice-5.5.0.zip
 ```
+
+Build
+-----
+
+```
+$ git clone https://github.com/malice-plugins/kibana-plugin-builder.git
+$ cd kibana-plugin-builder
+$ make plugin
+```
