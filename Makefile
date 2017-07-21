@@ -63,7 +63,7 @@ push: ## Push docker image to docker registry
 	@echo "===> Pushing $(ORG)/$(NAME):$(VERSION) to docker hub..."
 	@docker push $(ORG)/$(NAME):$(VERSION)
 
-release: push plugin ## Create a new release
+release: plugin push ## Create a new release
 	@echo "===> Creating Release"
 	rm -rf release && mkdir release
 	go get github.com/progrium/gh-release/...
