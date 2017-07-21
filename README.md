@@ -1,5 +1,5 @@
-kibana-plugin
-=============
+kibana-plugin-builder
+=====================
 
 [![Circle CI](https://circleci.com/gh/malice-plugins/kibana-malice.png?style=shield)](https://circleci.com/gh/malice-plugins/kibana-malice) [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org) [![Docker Stars](https://img.shields.io/docker/stars/malice/kibana.svg)](https://store.docker.com/community/images/malice/kibana) [![Docker Pulls](https://img.shields.io/docker/pulls/malice/kibana.svg)](https://store.docker.com/community/images/malice/kibana) [![Docker Image](https://img.shields.io/badge/docker%20image-945MB-blue.svg)](https://store.docker.com/community/images/malice/kibana)
 
