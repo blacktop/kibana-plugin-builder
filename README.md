@@ -40,7 +40,7 @@ $ sao kibana-plugin
 
 =OR=
 
-### Use **kibana-plugin-builder** to create new plugin  
+### Use `kibana-plugin-builder` to create new plugin  
 
 ```bash
 $ mkdir my-new-plugin
@@ -64,16 +64,16 @@ $ docker run --init --rm -ti -v `pwd`:/plugin -w /plugin blacktop/kibana-plugin-
 
 ```bash
 $ export VERSION=$(jq -r '.version' package.json)
-$ echo "===> Starting kibana elasticsearch..."
+# Starting kibana elasticsearch...
 $ docker run --init -d --name kplug -v `pwd`:/plugin/my-new-plugin -p 9200:9200 -p 5601:5601 blacktop/kibana-plugin-builder:$(VERSION)
-$ echo "===> Running kibana plugin..."
+# Running kibana plugin...
 $ sleep 10; docker exec -it kplug bash -c "cd ../my-new-plugin && ./start.sh"
 ```
 
 Build Image
 -----------
 
-To build a **kibana** dev env that uses **kibana** version `5.5.0`
+To build a **kibana** dev env that uses version `5.5.0`
 
 ```bash
 $ git clone https://github.com/blacktop/kibana-plugin-builder.git
