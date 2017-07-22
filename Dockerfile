@@ -32,4 +32,4 @@ USER node
 
 EXPOSE 5601 9200
 
-CMD ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
