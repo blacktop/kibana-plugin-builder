@@ -67,7 +67,7 @@ $ export VERSION=$(jq -r '.version' package.json)
 # Starting kibana elasticsearch...
 $ docker run --init -d --name kplug -v `pwd`:/plugin/my-new-plugin -p 9200:9200 -p 5601:5601 blacktop/kibana-plugin-builder:$(VERSION)
 # Running kibana plugin...
-$ sleep 10; docker exec -it kplug bash -c "cd ../my-new-plugin && ./start.sh"
+$ docker exec -it kplug bash -c "cd ../my-new-plugin && npm start"
 ```
 
 Build Image
