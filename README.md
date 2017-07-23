@@ -20,7 +20,7 @@ blacktop/kibana-plugin-builder     5.5.0               727MB
 blacktop/kibana-plugin-builder     node                54MB
 ```
 
-> **NOTE:** tag `node` is the base image that has the appropriate version of **NodeJS** for the version of **Kibana** you are using to build your plugin (it default to the version needed for latest)
+> **NOTE:** tag `node` is the base image that has the appropriate version of **NodeJS** for the version of **Kibana** you are using to build your plugin (it defaults to the version needed for latest)
 
 Getting Started
 ---------------
