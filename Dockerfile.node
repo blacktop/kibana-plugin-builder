@@ -4,7 +4,7 @@ LABEL maintainer "https://github.com/blacktop"
 LABEL credit "hhttps://github.com/nodejs/docker-node"
 
 ENV NPM_CONFIG_LOGLEVEL info
-ARG NODE_VERSION=6.10.2
+ARG NODE_VERSION=6.11.1
 
 RUN addgroup -g 1000 node \
     && adduser -u 1000 -G node -s /bin/sh -D node \

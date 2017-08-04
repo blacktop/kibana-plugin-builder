@@ -11,10 +11,10 @@ dockerfile: ## Update Dockerfiles
 	sed -i.bu 's/ARG NODE_VERSION=.*/ARG NODE_VERSION=$(NODE_VERSION)/' Dockerfile.node
 
 node: ### Build docker base image
-	docker build --squash --build-arg NODE_VERSION=${NODE_VERSION} -f Dockerfile.node -t $(ORG)/$(NAME):node .
+	docker build --build-arg NODE_VERSION=${NODE_VERSION} -f Dockerfile.node -t $(ORG)/$(NAME):node .
 
 build: dockerfile node ## Build docker image
-	docker build --squash --build-arg VERSION=$(VERSION) -t $(ORG)/$(NAME):$(VERSION) .
+	docker build --build-arg VERSION=$(VERSION) -t $(ORG)/$(NAME):$(VERSION) .
 
 dev: base ## Build docker dev image
 	docker build --squash --build-arg NODE_VERSION=${NODE_VERSION} -f Dockerfile.dev -t $(ORG)/$(NAME):$(VERSION) .
