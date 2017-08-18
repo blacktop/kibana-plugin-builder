@@ -6,24 +6,8 @@ jobs:
       - image: docker:17.06.0-ce-git
     steps:
       - checkout
-      - setup_remote_docker
-      - run:
-          name: Install dependencies
-          command: |
-            apk add --no-cache \
-              py2-pip=9.0.1-r1 curl=7.54.0-r0 jq
-            pip install \
-              docker-compose==1.14.0 \
-              awscli==1.11.112 \
-              httpie
-      - run:
-          name: Install Docker client
-          command: |
-            set -x
-            VER="17.05.0-ce"
-            curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
-            tar -xz -C /tmp -f /tmp/docker-$VER.tgz
-            mv /tmp/docker/* /usr/bin
+      - setup_remote_docker:
+          version: 17.06.0-ce
       - restore_cache:
           keys:
             - v1-{{ .Branch }}
@@ -60,7 +44,7 @@ jobs:
           no_output_timeout: 1m
           command: |
             set -x
-            docker run --rm app npm run test:quick --force
+            docker run --rm app npm run test:quick
       # - deploy:
       #     name: Push application Docker image
       #     command: |

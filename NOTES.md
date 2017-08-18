@@ -8,3 +8,5 @@ NOTES
 - https://www.timroes.de/2015/12/06/writing-kibana-4-plugins-visualizations-using-data/
 - https://www.timroes.de/2016/02/17/writing-kibana-4-plugins-field-formatters/
 - https://www.timroes.de/2016/02/21/writing-kibana-plugins-custom-applications/
+
+Tests were failing so I added the `--force` flag, but they should pass now
