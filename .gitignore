@@ -61,3 +61,4 @@ kibana/libesvm*
 kibana/libesvm-*/
 *.bu
 release/
+.circleci/build_num

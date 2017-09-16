@@ -16,6 +16,7 @@ kibana-plugin-builder
 ```bash
 REPOSITORY                         TAG                 SIZE
 blacktop/kibana-plugin-builder     latest              1.09GB
+blacktop/kibana-plugin-builder     5.6.0               1.09GB
 blacktop/kibana-plugin-builder     5.5.2               1.09GB
 blacktop/kibana-plugin-builder     node                54MB
 ```
@@ -56,7 +57,7 @@ $ docker run --init --rm -ti -v `pwd`:/plugin -w /plugin blacktop/kibana-plugin-
 
 ```json
   "kibana": {
-    "version": "5.5.2",
+    "version": "5.6.0",
     "templateVersion": "7.2.0"
   }
   ...
@@ -76,12 +77,12 @@ $ docker exec -it kplug bash -c "cd ../my-new-plugin && npm start"
 Build Image
 -----------
 
-To build a **kibana** dev env that uses version `5.5.2`
+To build a **kibana** dev env that uses version `5.6.0`
 
 ```bash
 $ git clone https://github.com/blacktop/kibana-plugin-builder.git
 $ cd kibana-plugin-builder
-$ VERSION=5.5.2 make build
+$ VERSION=5.6.0 make build
 ```
 
 ### Issues
