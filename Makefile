@@ -3,7 +3,7 @@
 ORG=blacktop
 NAME=kibana-plugin-builder
 REPO=$(ORG)/$(NAME)
-VERSION?=$(shell curl -s https://raw.githubusercontent.com/maliceio/malice-kibana-plugin/master/package.json | jq -r '.version')
+VERSION?=$(shell http https://raw.githubusercontent.com/maliceio/malice-kibana-plugin/master/package.json | jq -r '.version')
 NODE_VERSION?=$(shell curl -s https://raw.githubusercontent.com/elastic/kibana/v$(VERSION)/.node-version)
 
 dockerfile: ## Update Dockerfiles
@@ -42,7 +42,7 @@ test: ## Test build plugin
 	@echo "===> Starting kibana tests..."
 	@docker run --init --rm -p 9200:9200 -p 5601:5601 $(ORG)/$(NAME):$(VERSION) npm run test:quick --force
 
-push: build ## Push docker image to docker registry
+push: build size ## Push docker image to docker registry
 	@echo "===> Pushing $(ORG)/$(NAME):node to docker hub..."
 	@docker push $(ORG)/$(NAME):node
 	@echo "===> Pushing $(ORG)/$(NAME):$(VERSION) to docker hub..."
@@ -73,4 +73,4 @@ stop: ## Kill running kibana-plugin docker containers
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-.DEFAULT_GOAL := help
+.DEFAULT_GOAL := push

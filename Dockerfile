@@ -8,7 +8,7 @@ ENV PATH=${PATH}:${JAVA_HOME}/bin:/plugin/kibana/bin:${PATH}
 
 RUN apk add --no-cache openjdk8-jre ca-certificates git bash
 
-ARG VERSION=5.6.0
+ARG VERSION=6.0.0
 
 RUN echo "===> Installing elasticdump" \
   && npm install sao template-kibana-plugin elasticdump -g
