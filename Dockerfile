@@ -10,8 +10,10 @@ RUN apk add --no-cache openjdk8-jre ca-certificates git bash
 
 ARG VERSION=6.0.0
 
+COPY node-prune.sh /usr/bin/node-prune
 RUN echo "===> Installing elasticdump" \
-  && npm install sao template-kibana-plugin elasticdump -g
+  && npm install sao template-kibana-plugin elasticdump -g \
+  && cd /usr/local/lib/ && node-prune || true
 
 WORKDIR /plugin
 
@@ -21,7 +23,7 @@ RUN echo "===> Cloning Kibana v$VERSION" \
 WORKDIR /plugin/kibana
 
 # Install kibana node_modules
-RUN npm install
+RUN npm install && node-prune || true
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chown -R node: /plugin \
