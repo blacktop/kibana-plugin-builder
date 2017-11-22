@@ -23,7 +23,7 @@ RUN echo "===> Cloning Kibana v$VERSION" \
 WORKDIR /plugin/kibana
 
 # Install kibana node_modules
-RUN npm install && node-prune || true
+RUN npm install
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chown -R node: /plugin \
