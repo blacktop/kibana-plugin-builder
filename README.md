@@ -1,7 +1,6 @@
-kibana-plugin-builder
-=====================
+# kibana-plugin-builder
 
-[![Circle CI](https://circleci.com/gh/blacktop/kibana-plugin-builder.png?style=shield)](https://circleci.com/gh/blacktop/kibana-plugin-builder) [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org) [![Docker Stars](https://img.shields.io/docker/stars/blacktop/kibana-plugin-builder.svg)](https://store.docker.com/community/images/blacktop/kibana-plugin-builder) [![Docker Pulls](https://img.shields.io/docker/pulls/blacktop/kibana-plugin-builder.svg)](https://store.docker.com/community/images/blacktop/kibana-plugin-builder) [![Docker Image](https://img.shields.io/badge/docker%20image-1.11GB-blue.svg)](https://store.docker.com/community/images/blacktop/kibana-plugin-builder)
+[![Circle CI](https://circleci.com/gh/blacktop/kibana-plugin-builder.png?style=shield)](https://circleci.com/gh/blacktop/kibana-plugin-builder) [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org) [![Docker Stars](https://img.shields.io/docker/stars/blacktop/kibana-plugin-builder.svg)](https://store.docker.com/community/images/blacktop/kibana-plugin-builder) [![Docker Pulls](https://img.shields.io/docker/pulls/blacktop/kibana-plugin-builder.svg)](https://store.docker.com/community/images/blacktop/kibana-plugin-builder) [![Docker Image](https://img.shields.io/badge/docker%20image-1.18GB-blue.svg)](https://store.docker.com/community/images/blacktop/kibana-plugin-builder)
 
 > Kibana Plugin Builder - **kibana** plugin development environment in a **docker** image
 
@@ -9,23 +8,23 @@ kibana-plugin-builder
 
 ### Dependencies
 
--	[alpine:3.6](https://hub.docker.com/_/alpine/)
+* [alpine:3.7](https://hub.docker.com/_/alpine/)
 
 ### Image Tags
 
 ```bash
 REPOSITORY                         TAG                 SIZE
-blacktop/kibana-plugin-builder     latest              1.11GB
+blacktop/kibana-plugin-builder     latest              1.18GB
+blacktop/kibana-plugin-builder     6.1.3               1.18GB
 blacktop/kibana-plugin-builder     6.0.0               1.11GB
 blacktop/kibana-plugin-builder     5.6.0               1.09GB
 blacktop/kibana-plugin-builder     5.5.2               1.09GB
-blacktop/kibana-plugin-builder     node                54MB
+blacktop/kibana-plugin-builder     node                53.7MB
 ```
 
 > **NOTE:** tag `node` is the base image that has the appropriate version of **NodeJS** for the version of **Kibana** you are using to build your plugin (it defaults to the version needed for latest)
 
-Getting Started
----------------
+## Getting Started
 
 ### Install [template-kibana-plugin](https://github.com/elastic/template-kibana-plugin/)
 
@@ -42,7 +41,7 @@ $ sao kibana-plugin
 
 =OR=
 
-### Use `kibana-plugin-builder` to create new plugin  
+### Use `kibana-plugin-builder` to create new plugin
 
 ```bash
 $ mkdir my-new-plugin
@@ -54,7 +53,7 @@ $ docker run --init --rm -ti -v `pwd`:/plugin -w /plugin blacktop/kibana-plugin-
 
 > **NOTE:** this assumes you have set a `version` in your `package.json`
 
-*example:*
+_example:_
 
 ```json
   "kibana": {
@@ -75,8 +74,7 @@ $ docker run --init -d \
 $ docker exec -it kplug bash -c "cd ../my-new-plugin && npm start"
 ```
 
-Build Image
------------
+## Build Image
 
 To build a **kibana** dev env that uses version `5.6.0`
 
@@ -102,4 +100,4 @@ Please update the [CHANGELOG.md](https://github.com/blacktop/kibana-plugin-build
 
 ### License
 
-MIT Copyright (c) 2017 **blacktop**
+MIT Copyright (c) 2017-2018 **blacktop**

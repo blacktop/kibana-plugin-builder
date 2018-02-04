@@ -8,7 +8,7 @@ ENV PATH=${PATH}:${JAVA_HOME}/bin:/plugin/kibana/bin:${PATH}
 
 RUN apk add --no-cache openjdk8-jre ca-certificates git bash
 
-ARG VERSION=6.0.0
+ARG VERSION=6.1.3
 
 COPY node-prune.sh /usr/bin/node-prune
 RUN echo "===> Installing elasticdump" \
