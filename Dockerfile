@@ -12,6 +12,7 @@ ARG VERSION=6.3.0
 
 COPY node-prune.sh /usr/bin/node-prune
 RUN echo "===> Installing elasticdump" \
+  && set -ex \
   && yarn global add elasticdump \
   && cd /usr/local/lib/ && node-prune || true
 
@@ -23,10 +24,13 @@ RUN echo "===> Cloning Kibana v$VERSION" \
 WORKDIR /plugin/kibana
 
 # Install kibana node_modules
-RUN yarn kbn bootstrap && cd /usr/local/lib/ && node-prune || true
+RUN set -ex \
+  && yarn kbn bootstrap \
+  && cd /usr/local/lib \
+  && node-prune || true \
+  && chown -R node:node /plugin
 
 COPY --chown=node:node entrypoint.sh /entrypoint.sh
-RUN chown -R node:node /plugin
 
 USER node
 

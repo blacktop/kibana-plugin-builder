@@ -8,7 +8,12 @@ if [ "${1:0:1}" = '-' ]; then
 fi
 
 if [ "$1" = 'new-plugin' ]; then
-  node kibana/scripts/generate_plugin "$@"
+  shift
+  set -- node kibana/scripts/generate_plugin "$@"
+fi
+
+if [ "$1" = 'elasticsearch' ]; then
+	set -- yarn es snapshot
 fi
 
 exec "$@"
