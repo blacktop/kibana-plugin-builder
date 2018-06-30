@@ -43,7 +43,7 @@ run: stop ## Run kibana plugin env
 
 .PHONY: ssh
 ssh: ## SSH into docker image
-	@docker run --init -it --rm --entrypoint=sh $(ORG)/$(NAME):$(VERSION)
+	@docker run --init -it --rm -v `pwd`/test-plugin:/plugin/kibana-extra -w /plugin --entrypoint=sh $(ORG)/$(NAME):$(VERSION)
 
 .PHONY: tar
 tar: ## Export tar of docker image
@@ -54,8 +54,7 @@ test: ## Test build plugin
 	@echo "===> Starting kibana tests..."
 	@rm -rf test-plugin || true
 	@mkdir test-plugin
-	@docker run --init --rm -v `pwd`/test-plugin:/plugin -w /plugin $(ORG)/$(NAME):$(VERSION) ls
-	@docker run --init --rm -v `pwd`/test-plugin:/plugin -w /plugin $(ORG)/$(NAME):$(VERSION) node kibana/scripts/generate_plugin.js test-plugin
+	docker run --init --rm -v `pwd`/test-plugin:/plugin/kibana-extra -w /plugin $(ORG)/$(NAME):$(VERSION) new-plugin test
 
 .PHONY: push
 push: build size ## Push docker image to docker registry

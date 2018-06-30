@@ -25,10 +25,8 @@ WORKDIR /plugin/kibana
 # Install kibana node_modules
 RUN yarn kbn bootstrap && cd /usr/local/lib/ && node-prune || true
 
-COPY entrypoint.sh /entrypoint.sh
-RUN chown -R node: /plugin \
-  && chmod +x /entrypoint.sh \
-  && chown -R node: /entrypoint.sh
+COPY --chown=node:node entrypoint.sh /entrypoint.sh
+RUN chown -R node:node /plugin
 
 USER node
 

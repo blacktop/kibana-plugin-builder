@@ -8,7 +8,7 @@ if [ "${1:0:1}" = '-' ]; then
 fi
 
 if [ "$1" = 'new-plugin' ]; then
-  node scripts/generate_plugin
+  node kibana/scripts/generate_plugin "$@"
 fi
 
 exec "$@"
