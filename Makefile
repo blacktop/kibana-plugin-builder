@@ -49,6 +49,11 @@ ssh: ## SSH into docker image
 tar: ## Export tar of docker image
 	@docker save $(ORG)/$(NAME):$(VERSION) -o $(NAME).tar
 
+.PHONY: elasticsearch
+elasticsearch:
+	@echo "===> Starting kibana elasticsearch..."
+	@docker run --init -it --rm --name kplug -v `pwd`/test-plugin:/plugin/kibana-extra -p 9200:9200 -p 5601:5601 $(ORG)/$(NAME):$(VERSION) elasticsearch
+
 .PHONY: test
 test: ## Test build plugin
 	@echo "===> Starting kibana tests..."
