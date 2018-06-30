@@ -62,3 +62,4 @@ kibana/libesvm-*/
 *.bu
 release/
 .circleci/build_num
+test-plugin/
