@@ -67,6 +67,8 @@ push: build size ## Push docker image to docker registry
 	@docker push $(ORG)/$(NAME):node
 	@echo "===> Pushing $(ORG)/$(NAME):$(VERSION) to docker hub..."
 	@docker push $(ORG)/$(NAME):$(VERSION)
+	@docker tag $(ORG)/$(NAME):$(VERSION) $(ORG)/$(NAME):latest
+	@docker push $(ORG)/$(NAME):latest
 
 .PHONY: circle
 circle: ci-size ## Get docker image size from CircleCI
