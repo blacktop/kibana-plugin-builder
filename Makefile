@@ -88,7 +88,7 @@ clean: ## Clean docker image and stop all running containers
 	docker-clean stop
 	docker rmi $(ORG)/$(NAME):$(VERSION) || true
 	docker rmi $(ORG)/$(NAME):node || true
-	rm -rf malice/build
+	rm -rf test-plugin || true
 
 .PHONY: stop
 stop: ## Kill running kibana-plugin docker containers
