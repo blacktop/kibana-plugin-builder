@@ -4,15 +4,11 @@ set -e
 
 # Add npm as command if needed
 if [ "${1:0:1}" = '-' ]; then
-	set -- npm "$@"
+	set -- yarn "$@"
 fi
 
 if [ "$1" = 'new-plugin' ]; then
-  sao kibana-plugin
-fi
-
-if [ "$1" = 'elasticsearch' ]; then
-  npm run elasticsearch
+  node scripts/generate_plugin
 fi
 
 exec "$@"

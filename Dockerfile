@@ -8,22 +8,22 @@ ENV PATH=${PATH}:${JAVA_HOME}/bin:/plugin/kibana/bin:${PATH}
 
 RUN apk add --no-cache openjdk8-jre ca-certificates git bash
 
-ARG VERSION=6.1.3
+ARG VERSION=6.3.0
 
 COPY node-prune.sh /usr/bin/node-prune
 RUN echo "===> Installing elasticdump" \
-  && npm install sao template-kibana-plugin elasticdump -g \
+  && yarn global add elasticdump \
   && cd /usr/local/lib/ && node-prune || true
 
 WORKDIR /plugin
 
 RUN echo "===> Cloning Kibana v$VERSION" \
-    && git clone --depth 1 -b v${VERSION} https://github.com/elastic/kibana.git
+  && git clone --depth 1 -b v${VERSION} https://github.com/elastic/kibana.git
 
 WORKDIR /plugin/kibana
 
 # Install kibana node_modules
-RUN npm install
+RUN yarn kbn bootstrap && cd /usr/local/lib/ && node-prune || true
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chown -R node: /plugin \
