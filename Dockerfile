@@ -6,8 +6,6 @@ ENV LANG=C.UTF-8
 ENV JAVA_HOME=/usr/lib/jvm/default-jvm/jre
 ENV PATH=${PATH}:${JAVA_HOME}/bin:/plugin/kibana/bin:${PATH}
 
-RUN apk add --no-cache openjdk8-jre ca-certificates git bash coreutils
-
 ARG VERSION=6.3.0
 
 COPY node-prune.sh /usr/bin/node-prune
