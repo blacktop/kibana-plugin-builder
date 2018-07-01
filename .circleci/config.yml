@@ -44,4 +44,4 @@ jobs:
           no_output_timeout: 10m
           command: |
             set -x
-            docker run --rm app bash -c "yarn test:quick"
+            docker run --rm app bash -c "yarn test:quick --force"
