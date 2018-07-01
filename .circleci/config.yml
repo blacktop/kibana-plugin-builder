@@ -44,4 +44,4 @@ jobs:
           no_output_timeout: 1m
           command: |
             set -x
-            docker run --rm app npm run test:quick --force
+            docker run --rm app yarn test:quick --force

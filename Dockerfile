@@ -28,7 +28,8 @@ RUN set -ex \
   && node-prune || true \
   && chown -R node:node /plugin
 
-COPY --chown=node:node entrypoint.sh /entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
+RUN chown node:node /entrypoint.sh
 
 USER node
 
