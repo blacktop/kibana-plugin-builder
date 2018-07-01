@@ -39,9 +39,9 @@ jobs:
           key: v1-{{ .Branch }}-{{ epoch }}
           paths:
             - /caches/app.tar
-      - run:
-          name: Run image tests
-          no_output_timeout: 10m
-          command: |
-            set -x
-            docker run --rm app bash -c "yarn test:quick --force"
+      # - run:
+      #     name: Run image tests
+      #     no_output_timeout: 10m
+      #     command: |
+      #       set -x
+      #       docker run --rm app bash -c "yarn test:quick --force"
