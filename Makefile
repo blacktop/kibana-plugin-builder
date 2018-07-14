@@ -59,7 +59,7 @@ test: ## Test build plugin
 	@echo "===> Starting kibana tests..."
 	@rm -rf test-plugin || true
 	@mkdir test-plugin
-	docker run --init --rm -v `pwd`/test-plugin:/plugin/kibana-extra -w /plugin $(ORG)/$(NAME):$(VERSION) new-plugin test
+	docker run --init -it --rm -v `pwd`/test-plugin:/plugin/kibana-extra -w /plugin $(ORG)/$(NAME):$(VERSION) new-plugin test
 
 .PHONY: push
 push: build size ## Push docker image to docker registry
