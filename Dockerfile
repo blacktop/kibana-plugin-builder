@@ -6,7 +6,7 @@ ENV LANG=C.UTF-8
 ENV JAVA_HOME=/usr/lib/jvm/default-jvm/jre
 ENV PATH=${PATH}:${JAVA_HOME}/bin:/plugin/kibana/bin:${PATH}
 
-ARG VERSION=6.3.1
+ARG VERSION=6.3.2
 
 COPY node-prune.sh /usr/bin/node-prune
 RUN echo "===> Installing elasticdump" \

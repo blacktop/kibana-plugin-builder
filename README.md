@@ -15,6 +15,7 @@
 ```bash
 REPOSITORY                         TAG                 SIZE
 blacktop/kibana-plugin-builder     latest              3.19GB
+blacktop/kibana-plugin-builder     6.3.2               3.19GB
 blacktop/kibana-plugin-builder     6.3.1               3.19GB
 blacktop/kibana-plugin-builder     6.1.3               1.18GB
 blacktop/kibana-plugin-builder     6.0.0               1.11GB
@@ -66,8 +67,8 @@ _example:_
 
 ```json
   "kibana": {
-    "version": "6.3.0",
-    "templateVersion": "7.2.0"
+    "version": "6.3.2",
+    "templateVersion": "1.0.0"
   }
   ...
 ```
