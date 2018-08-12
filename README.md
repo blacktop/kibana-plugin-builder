@@ -8,7 +8,7 @@
 
 ### Dependencies
 
-- [alpine:3.7](https://hub.docker.com/_/alpine/)
+- [node:8.11.3](https://hub.docker.com/_/node/)
 
 ### Image Tags
 
@@ -54,9 +54,7 @@ $ node scripts/generate_plugin my_plugin_name
 
 ```bash
 $ mkdir my-new-plugin
-$ cd my-new-plugin
-$ docker run --init --rm -ti -v `pwd`:/plugin -w /plugin blacktop/kibana-plugin-builder node kibana/scripts/generate_plugin --help
-$ docker run --init --rm -ti -v `pwd`:/plugin -w /plugin blacktop/kibana-plugin-builder node kibana/scripts/generate_plugin my-new-plugin
+$	docker run --init -it --rm -v `pwd`/my-new-plugin:/plugin/kibana-extra -w /plugin blacktop/kibana-plugin-builder new-plugin hotness
 ```
 
 ### Start Kibana Dev Environment
