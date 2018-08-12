@@ -54,7 +54,7 @@ $ node scripts/generate_plugin my_plugin_name
 
 ```bash
 $ mkdir my-new-plugin
-$	docker run --init -it --rm -v `pwd`/my-new-plugin:/plugin/kibana-extra -w /plugin blacktop/kibana-plugin-builder new-plugin hotness
+$ docker run --init -it --rm -v `pwd`/my-new-plugin:/plugin/kibana-extra -w /plugin blacktop/kibana-plugin-builder new-plugin hotness
 ```
 
 ### Start Kibana Dev Environment
