@@ -13,12 +13,18 @@ dockerfile: ## Update Dockerfiles
 	sed -i.bu 's/ARG VERSION=.*/ARG VERSION=$(VERSION)/' Dockerfile
 	sed -i.bu 's/ARG NODE_VERSION=.*/ARG NODE_VERSION=$(NODE_VERSION)/' Dockerfile.node
 
+.PHONY: readme
+readme: ## Update docker image size in README.md
+	@echo "===> Fixing README.md is not implimented yet"
+	# sed -i.bu 's/- Kibana [0-9.]\{5\}+/- Kibana $(VERSION)+/' README.md
+	# sed -i.bu 's/v.*\/malice-.*/v$(VERSION)\/malice-$(VERSION).zip/' README.md
+
 .PHONY: node
 node: ### Build docker base image
 	docker build --build-arg NODE_VERSION=${NODE_VERSION} -f Dockerfile.node -t $(ORG)/$(NAME):node .
 
 .PHONY: build
-build: dockerfile node ## Build docker image
+build: dockerfile readme node ## Build docker image
 	docker build --build-arg VERSION=$(VERSION) -t $(ORG)/$(NAME):$(VERSION) .
 
 .PHONY: dev

@@ -3,7 +3,7 @@ FROM openjdk:8
 LABEL maintainer "https://github.com/blacktop"
 LABEL credit "https://github.com/nodejs/docker-node"
 
-ARG NODE_VERSION=8.11.3
+ARG NODE_VERSION=8.11.4
 
 RUN groupadd --gid 1000 node \
   && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
