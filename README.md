@@ -15,6 +15,7 @@
 ```bash
 REPOSITORY                         TAG                 SIZE
 blacktop/kibana-plugin-builder     latest              3.5GB
+blacktop/kibana-plugin-builder     6.4.1               3.5GB
 blacktop/kibana-plugin-builder     6.4.0               3.5GB
 blacktop/kibana-plugin-builder     6.3.2               3.19GB
 blacktop/kibana-plugin-builder     6.3.1               3.19GB
@@ -69,7 +70,7 @@ _example:_
 
 ```json
   "kibana": {
-    "version": "6.4.0",
+    "version": "6.4.1",
     "templateVersion": "1.0.0"
   }
   ...
@@ -88,12 +89,12 @@ $ docker exec -it kplug bash -c "cd ../my-new-plugin && yarn start"
 
 ## Build Image
 
-To build a **kibana** dev env that uses version `6.4.0`
+To build a **kibana** dev env that uses version `6.4.1`
 
 ```bash
 $ git clone https://github.com/blacktop/kibana-plugin-builder.git
 $ cd kibana-plugin-builder
-$ VERSION=6.4.0 make build
+$ VERSION=6.4.1 make build
 ```
 
 ### Issues
