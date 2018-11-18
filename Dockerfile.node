@@ -1,4 +1,4 @@
-FROM openjdk:8
+FROM openjdk:11
 
 LABEL maintainer "https://github.com/blacktop"
 LABEL credit "https://github.com/nodejs/docker-node"

@@ -6,7 +6,7 @@ VERSION?=$(shell cat LATEST)
 NODE_VERSION?=$(shell curl -s https://raw.githubusercontent.com/elastic/kibana/v$(VERSION)/.node-version)
 
 .PHONY: all
-all: build size push
+all: build size
 
 .PHONY: dockerfile
 dockerfile: ## Update Dockerfiles
@@ -104,4 +104,4 @@ stop: ## Kill running kibana-plugin docker containers
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-.DEFAULT_GOAL := push
+.DEFAULT_GOAL := all
