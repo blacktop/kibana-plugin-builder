@@ -15,7 +15,7 @@
 ```bash
 REPOSITORY                         TAG                 SIZE
 blacktop/kibana-plugin-builder     latest              4.55GB
-blacktop/kibana-plugin-builder     6.5.0               4.47GB
+blacktop/kibana-plugin-builder     6.5.3               4.55GB
 blacktop/kibana-plugin-builder     6.4.1               3.48GB
 blacktop/kibana-plugin-builder     6.4.0               3.5GB
 blacktop/kibana-plugin-builder     6.3.2               3.19GB
