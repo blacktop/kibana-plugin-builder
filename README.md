@@ -1,6 +1,6 @@
 # kibana-plugin-builder
 
-[![Circle CI](https://circleci.com/gh/blacktop/kibana-plugin-builder.png?style=shield)](https://circleci.com/gh/blacktop/kibana-plugin-builder) [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org) [![Docker Stars](https://img.shields.io/docker/stars/blacktop/kibana-plugin-builder.svg)](https://store.docker.com/community/images/blacktop/kibana-plugin-builder) [![Docker Pulls](https://img.shields.io/docker/pulls/blacktop/kibana-plugin-builder.svg)](https://store.docker.com/community/images/blacktop/kibana-plugin-builder) [![Docker Image](https://img.shields.io/badge/docker%20image-4.55GB-blue.svg)](https://store.docker.com/community/images/blacktop/kibana-plugin-builder)
+[![Circle CI](https://circleci.com/gh/blacktop/kibana-plugin-builder.png?style=shield)](https://circleci.com/gh/blacktop/kibana-plugin-builder) [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org) [![Docker Stars](https://img.shields.io/docker/stars/blacktop/kibana-plugin-builder.svg)](https://store.docker.com/community/images/blacktop/kibana-plugin-builder) [![Docker Pulls](https://img.shields.io/docker/pulls/blacktop/kibana-plugin-builder.svg)](https://store.docker.com/community/images/blacktop/kibana-plugin-builder) [![Docker Image](https://img.shields.io/badge/docker%20image-4.08GB-blue.svg)](https://store.docker.com/community/images/blacktop/kibana-plugin-builder)
 
 > Kibana Plugin Builder - **kibana** plugin development environment in a **docker** image
 
@@ -14,7 +14,8 @@
 
 ```bash
 REPOSITORY                         TAG                 SIZE
-blacktop/kibana-plugin-builder     latest              4.55GB
+blacktop/kibana-plugin-builder     latest              4.08GB
+blacktop/kibana-plugin-builder     6.6.0               4.08GB
 blacktop/kibana-plugin-builder     6.5.3               4.55GB
 blacktop/kibana-plugin-builder     6.4.1               3.48GB
 blacktop/kibana-plugin-builder     6.4.0               3.5GB
