@@ -11,7 +11,7 @@ all: build size
 .PHONY: dockerfile
 dockerfile: ## Update Dockerfiles
 	sed -i.bu 's/ARG VERSION=.*/ARG VERSION=$(VERSION)/' Dockerfile
-	sed -i.bu 's/FROM node:.*/FROM node:$(NODE_VERSION)-alpine/' Dockerfile
+	sed -i.bu 's/FROM node:.*/FROM node:$(NODE_VERSION)-stretch-slim/' Dockerfile
 
 .PHONY: readme
 readme: ## Update docker image size in README.md
