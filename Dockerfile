@@ -1,6 +1,8 @@
-FROM blacktop/kibana-plugin-builder:node
+FROM node:10.15.1-alpine
 
 LABEL maintainer "https://github.com/blacktop"
+
+RUN apk add --no-cache openjdk8-jre-base git
 
 ENV LANG=C.UTF-8
 ENV JAVA_HOME=/usr/lib/jvm/default-jvm/jre

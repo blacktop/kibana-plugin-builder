@@ -11,7 +11,7 @@ all: build size
 .PHONY: dockerfile
 dockerfile: ## Update Dockerfiles
 	sed -i.bu 's/ARG VERSION=.*/ARG VERSION=$(VERSION)/' Dockerfile
-	sed -i.bu 's/ARG NODE_VERSION=.*/ARG NODE_VERSION=$(NODE_VERSION)/' Dockerfile.node
+	sed -i.bu 's/FROM node:.*/FROM node:$(NODE_VERSION)-alpine/' Dockerfile
 
 .PHONY: readme
 readme: ## Update docker image size in README.md
@@ -24,7 +24,7 @@ node: ### Build docker base image
 	docker build --build-arg NODE_VERSION=${NODE_VERSION} -f Dockerfile.node -t $(ORG)/$(NAME):node .
 
 .PHONY: build
-build: dockerfile readme node ## Build docker image
+build: dockerfile readme ## Build docker image
 	docker build --build-arg VERSION=$(VERSION) -t $(ORG)/$(NAME):$(VERSION) .
 
 .PHONY: dev
